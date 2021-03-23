@@ -1,7 +1,7 @@
 <div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
     <span class="visually-hidden">Loading...</span>
   </div>
-<table *ngIf="dataLoaded!=false" class="table">
+<table *ngIf="dataLoaded!=false && carInfo==false" class="table">
     <thead>
         <tr>
             <th>ID</th>
@@ -10,6 +10,7 @@
             <th>Renk</th>
             <th>Fiyat</th>
             <th>Modeli</th>
+            <th>#</th>
         </tr>
     </thead>
     <tr *ngFor="let car of cars">
@@ -19,5 +20,33 @@
         <td>{{car.colorName}}</td>
         <td>{{car.dailyPrice}}</td>
         <td>{{car.modelYear}}</td>
+        <td><button type="button" class="btn btn-success" routerLink="/cars/{{car.id}}">Detay</button></td>
     </tr>
 </table>
+
+<div *ngIf="carInfo!=false" class="card" style="width: 18rem;">
+    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner">
+          <div *ngFor="let carImage of carImages" class="carousel-item active">
+            <img src="{{apiUrl}}{{carImage.imagePath}}" class="d-block w-100" alt="...">
+          </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+          <span class="carousel-control-next-icon" aria-hidden="true"></span>
+          <span class="visually-hidden">Next</span>
+        </button>
+      </div>
+    <div class="card-body">
+        <tr *ngFor="let car of cars">
+            <p><strong>Araba Adı:</strong> {{car.carName}}</p>
+            <p><strong>Marka:</strong> {{car.brandName}}</p>
+            <p><strong>Renk:</strong> {{car.colorName}}</p>
+            <p><strong>Günlük Ücreti</strong> {{car.dailyPrice}}</p>
+            <p><strong>Modeli</strong> {{car.modelYear}}</p>
+        </tr>
+    </div>
+  </div>
