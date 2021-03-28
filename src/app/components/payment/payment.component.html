@@ -1,0 +1,69 @@
+<div class="content">
+    <div class="col-md-12">
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">Ödeme Yap</h5>
+                <p>Bakiyeniz: {{price}}₺</p>
+            </div>
+            <div class="card body">
+                <form [formGroup]="paymentForm">
+                    <div class="mb-3">
+                        <label for="name">İsim:</label>
+                        <div class="formGroup">
+                            <input type="text" id="name" formControlName="name" class="form-control" placeholder="İsim">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cardNumber">Kart Numarası:</label>
+                        <div class="formGroup">
+                            <input type="text" id="cardNumber" formControlName="cardNumber" class="form-control" placeholder="0000-0000-0000-0000">
+                        </div>
+                    </div>
+                    <div class="form-group row">
+                        <label for="lastUsingMonth">Son Kullanma Tarihi: Ay</label>
+                        <div class="col-md-4">
+                            <select class="form-control mb-1" id="lastUsingMonth" formControlName='lastUsingMonth'>
+                                <option value="01">01</option>
+                                <option value="02">02</option>
+                                <option value="03">03</option>
+                                <option value="04">04</option>
+                                <option value="05">05</option>
+                                <option value="06">06</option>
+                                <option value="07">07</option>
+                                <option value="08">08</option>
+                                <option value="09">09</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                            </select>
+                        </div>
+                        <div class="col-md-4">
+                            <select class="form-control mb-1" id="lastUsingYear" formControlName='lastUsingYear'>
+                                <option>2021</option>
+                                <option>2022</option>
+                                <option>2023</option>
+                                <option>2024</option>
+                                <option>2025</option>
+                                <option>2026</option>
+                                <option>2027</option>
+                                <option>2028</option>
+                                <option>2029</option>
+                                <option>2030</option>
+                                <option>2031</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="cvv">CVV</label>
+                        <div class="formGroup">
+                            <input type="text" id="cvv" formControlName="cvv" class="form-control" placeholder="000">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-fill btn-primary" (click)="pay()">Öde</button>
+            </div>
+        </div>
+    </div>
+</div>

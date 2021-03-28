@@ -1,52 +1,85 @@
-<div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
-    <span class="visually-hidden">Loading...</span>
+<div class="row">
+  <div class="col-md-3">
+    <app-color></app-color>
   </div>
-<table *ngIf="dataLoaded!=false && carInfo==false" class="table">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Araba Adı</th>
-            <th>Kategori</th>
-            <th>Renk</th>
-            <th>Fiyat</th>
-            <th>Modeli</th>
-            <th>#</th>
-        </tr>
-    </thead>
-    <tr *ngFor="let car of cars">
-        <td>{{car.id}}</td>
-        <td>{{car.carName}}</td>
-        <td>{{car.brandName}}</td>
-        <td>{{car.colorName}}</td>
-        <td>{{car.dailyPrice}}</td>
-        <td>{{car.modelYear}}</td>
-        <td><button type="button" class="btn btn-success" routerLink="/cars/{{car.id}}">Detay</button></td>
-    </tr>
-</table>
-
-<div *ngIf="carInfo!=false" class="card" style="width: 18rem;">
-    <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
-        <div class="carousel-inner">
-          <div *ngFor="let carImage of carImages" class="carousel-item active">
-            <img src="{{apiUrl}}{{carImage.imagePath}}" class="d-block w-100" alt="...">
-          </div>
-        </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
-          <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
-          <span class="carousel-control-next-icon" aria-hidden="true"></span>
-          <span class="visually-hidden">Next</span>
-        </button>
+  <div class="col-md-6">
+    <div class="row">
+      <div class="col-md-3 mb-3">
+        <input type="text" [(ngModel)]="filterText" class="form-control" id="filterText" placeholder="araba arama">
       </div>
-    <div class="card-body">
-        <tr *ngFor="let car of cars">
-            <p><strong>Araba Adı:</strong> {{car.carName}}</p>
-            <p><strong>Marka:</strong> {{car.brandName}}</p>
-            <p><strong>Renk:</strong> {{car.colorName}}</p>
-            <p><strong>Günlük Ücreti</strong> {{car.dailyPrice}}</p>
-            <p><strong>Modeli</strong> {{car.modelYear}}</p>
-        </tr>
+      <div class="col-md-3 mb-3">
+        <select [(ngModel)]="colorName" class="form-select" aria-label="Renk">
+          <option value="-1">Renkler</option>
+          <option *ngFor="let color of colors" value="{{color.name}}">{{color.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <select [(ngModel)]="brandName" class="form-select" aria-label="Brand">
+          <option value="-1" selected>Markalar</option>
+          <option *ngFor="let brand of brands" value="{{brand.name}}">{{brand.name}}</option>
+        </select>
+      </div>
+      <div class="col-md-3 mb-3">
+        <button type="button" class="btn btn-primary" (click)="getCars()">Filtrele</button>
+      </div>
+    </div>    
+    <div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
+      <span class="visually-hidden">Loading...</span>
     </div>
+    <table *ngIf="dataLoaded!=false && carInfo==false" class="table">
+      <thead>
+          <tr>
+              <th>ID</th>
+              <th>Araba Adı</th>
+              <th>Kategori</th>
+              <th>Renk</th>
+              <th>Fiyat</th>
+              <th>Modeli</th>
+              <th>#</th>
+          </tr>
+      </thead>
+      <tbody>
+        <tr routerLink="/cars/{{car.id}}" *ngFor="let car of cars | carPipe: filterText | brandAndColorPipe: colorName : brandName">
+          <td>{{car.id}}</td>
+          <td>{{car.carName}}</td>
+          <td>{{car.brandName}}</td>
+          <td>{{car.colorName}}</td>
+          <td>{{car.dailyPrice}}</td>
+          <td>{{car.modelYear}}</td>
+          <td><button type="button" class="btn btn-success" routerLink="rentals/rent/car/{{car.id}}/{{car.dailyPrice}}">Kirala</button></td>
+        </tr>
+      </tbody>    
+    </table>
+  
+    <div *ngIf="carInfo!=false" class="card" style="width: 18rem;">
+      <div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+          <div class="carousel-inner">
+            <div *ngFor="let carImage of carImages" class="carousel-item active">
+              <img src="{{apiUrl}}{{carImage.imagePath}}" class="d-block w-100" alt="...">
+            </div>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+      <div class="card-body">
+          <tr *ngIf="car">
+              <p><strong>Araba Adı:</strong> {{car.carName}}</p>
+              <p><strong>Marka:</strong> {{car.brandName}}</p>
+              <p><strong>Renk:</strong> {{car.colorName}}</p>
+              <p><strong>Günlük Ücreti</strong> {{car.dailyPrice}}</p>
+              <p><strong>Modeli</strong> {{car.modelYear}}</p>
+          </tr>
+      </div>
+    </div>
+  
   </div>
+  <div class="col-md-3">
+    <app-brand></app-brand>
+  </div>
+</div>

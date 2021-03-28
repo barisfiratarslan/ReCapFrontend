@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Brand } from 'src/app/models/brand';
 import { Car } from 'src/app/models/car';
 import { CarImage } from 'src/app/models/carImage';
+import { Color } from 'src/app/models/color';
+import { BrandService } from 'src/app/services/brand.service';
 import { CarImageService } from 'src/app/services/car-image.service';
 import { CarService } from 'src/app/services/car.service';
+import { ColorService } from 'src/app/services/color.service';
 
 @Component({
   selector: 'app-car',
@@ -13,25 +17,41 @@ import { CarService } from 'src/app/services/car.service';
 export class CarComponent implements OnInit {
 
   cars:Car[]=[];
+  colors:Color[]=[];
+  brands:Brand[]=[];
+  car:Car;
   carImages:CarImage[]=[];
+  filterText = "";
+  colorName = "";
+  brandName = "";
   dataLoaded = false;
   carInfo = false;
-  apiUrl : string = "https://localhost:44371/wepapi/carimages/";
-  constructor(private carService:CarService, private activatedRoute:ActivatedRoute, private carImageService:CarImageService) { }
+  apiUrl : string = "https://localhost:44371/img/";
+  constructor(private carService:CarService, private activatedRoute:ActivatedRoute, private carImageService:CarImageService, private colorService:ColorService, private brandService:BrandService) { }
 
   ngOnInit(): void {
     this.activatedRoute.params.subscribe(params=>{
       if(params["brandID"] && params["colorID"]){
         this.getCarsByColorAndBrand(params["colorID"],params["brandID"])
+        this.getColors();
+        this.getBrands();
       }else if(params["brandID"]){
         this.getCarsByBrand(params["brandID"])
+        this.getColors();
+        this.getBrands();
       }else if(params["colorID"]){
         this.getCarsByColor(params["colorID"])
+        this.getColors();
+        this.getBrands();
       }else if(params["carID"]){
         this.getCarsByCar(params["carID"])
-        this.getCarImagesByCar(params["carID"])
+        this.getCarImagesByCar(params["carID"])        
+        this.getColors();
+        this.getBrands();
       }else{
         this.getCars();
+        this.getColors();
+        this.getBrands();
       }
     })
   }
@@ -58,15 +78,12 @@ export class CarComponent implements OnInit {
   }
 
   getCarsByColorAndBrand(colorID:number,brandID:number){
-    this.carService.getCarsByColorAndBrand(colorID,brandID).subscribe(response=>{
-      this.cars = response.data
-      this.dataLoaded = true
-    })
+    console.log(colorID + " " + brandID);     
   }
 
   getCarsByCar(carID:number){
-    this.carService.getCarsByColor(carID).subscribe(response=>{
-      this.cars = response.data
+    this.carService.getCarsByCar(carID).subscribe(response=>{
+      this.car = response.data
       this.carInfo = true
       this.dataLoaded = true
     })
@@ -74,10 +91,21 @@ export class CarComponent implements OnInit {
 
   getCarImagesByCar(carID:number){
     this.carImageService.getCarImagesByCar(carID).subscribe(response=>{
-      console.log(response.data)
       this.carImages = response.data
       this.carInfo = true
       this.dataLoaded = true
+    })
+  }
+
+  getColors(){
+    this.colorService.getColors().subscribe(response=>{
+      this.colors = response.data
+    })
+  }
+
+  getBrands(){
+    this.brandService.getBrands().subscribe(response=>{
+      this.brands = response.data
     })
   }
 }
