@@ -20,6 +20,15 @@ import { BrandPipePipe } from './pipes/brand-pipe.pipe';
 import { RentComponent } from './components/rent/rent.component';
 import { BrandAndColorPipePipe } from './pipes/brand-and-color-pipe.pipe';
 import { PaymentComponent } from './components/payment/payment.component';
+import { ColorListComponent } from './components/color-list/color-list.component';
+import { BrandListComponent } from './components/brand-list/brand-list.component';
+import { CarListComponent } from './components/car-list/car-list.component';
+import { BrandAddComponent } from './components/brand-add/brand-add.component';
+import { BrandUpdateComponent } from './components/brand-update/brand-update.component';
+import { CarAddComponent } from './components/car-add/car-add.component';
+import { CarUpdateComponent } from './components/car-update/car-update.component';
+import { ColorAddComponent } from './components/color-add/color-add.component';
+import { ColorUpdateComponent } from './components/color-update/color-update.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +44,16 @@ import { PaymentComponent } from './components/payment/payment.component';
     BrandPipePipe,
     RentComponent,
     BrandAndColorPipePipe,
-    PaymentComponent
+    PaymentComponent,
+    ColorListComponent,
+    BrandListComponent,
+    CarListComponent,
+    BrandAddComponent,
+    BrandUpdateComponent,
+    CarAddComponent,
+    CarUpdateComponent,
+    ColorAddComponent,
+    ColorUpdateComponent
   ],
   imports: [
     BrowserModule,

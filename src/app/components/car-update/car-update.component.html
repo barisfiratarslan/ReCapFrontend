@@ -1,0 +1,50 @@
+<div class="content">
+    <div class="col-md-12">        
+        <div class="card">
+            <div class="card-header">
+                <h5 class="title">Marka Ekle</h5>
+            </div>
+            <div class="card-body">
+                <form [formGroup]="updateForm">
+                    <div class="mb-3">
+                        <label for="productName">Araba</label>
+                        <div class="form-group">
+                            <input type="number" id="id" formControlName="id" class="form-control" placeholder="{{car.id}}">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productName">Araba</label>
+                        <div class="form-group">
+                            <input type="text" id="name" formControlName="name" class="form-control" placeholder="{{car.name}}">
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <select formControlName="colorID" class="form-select" aria-label="Renk">
+                          <option *ngFor="let color of colors" [class]="setCurrentColorClass(color)" [ngValue]="color.id">{{color.name}}</option>
+                        </select>
+                      </div>
+                      <div class="col-md-3 mb-3">
+                        <select formControlName="brandID" class="form-select" aria-label="Brand">
+                          <option *ngFor="let brand of brands" [ngValue]="brand.id">{{brand.name}}</option>
+                        </select>
+                      </div>                   
+                    <div class="mb-3">
+                        <label for="productName">Günlük Fiyatı</label>
+                        <div class="form-group">
+                            <input type="number" id="dailyPrice" formControlName="dailyPrice" class="form-control" placeholder="{{car.dailyPrice}}">
+                        </div>
+                    </div>
+                    <div class="mb-3">
+                        <label for="productName">Modeli</label>
+                        <div class="form-group">
+                            <input type="date" id="modelYear" formControlName="modelYear" class="form-control" value="{{car.modelYear}}">
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="card-footer">
+                <button class="btn btn-fill btn-primary" (click)="update()">Ekle</button>
+            </div>
+        </div>
+    </div>    
+</div>

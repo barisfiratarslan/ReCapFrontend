@@ -1,0 +1,25 @@
+<div *ngIf="dataLoaded==false" class="spinner-border text-primary" role="status">
+    <span class="visually-hidden">Loading...</span>
+</div>
+<div class="row">
+    <h5 class="col-md-6">Renk Listesi</h5>
+    <div class="col-md-6">
+        <button style="float:right;" class="btn btn-success col-md-2"  routerLink="/colors/addColor" >Renk Ekle </button><br>
+    </div><br>
+</div>
+<table *ngIf="dataLoaded!=false" class="table">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Renk Adı</th>
+            <th>#</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let color of colors">
+            <td>{{color.id}}</td>
+            <td>{{color.name}}</td>
+            <td><button type="button" class="btn btn-success" routerLink="/colors/update/color/{{color.id}}">Güncelle</button></td>
+        </tr>
+    </tbody>    
+</table>
