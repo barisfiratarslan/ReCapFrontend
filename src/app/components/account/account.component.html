@@ -1,0 +1,25 @@
+<body class="text-center">    
+    <main class="form-signin">
+      <form [formGroup]="acountForm">
+        <h1 class="h3 mb-3 fw-normal">Kullancı Bilgileri</h1>
+        <div class="form-floating">
+            <input formControlName="id" type="id" class="form-control" id="floatingInput" placeholder="{{user.id}}">
+            <label for="floatingInput">id</label>
+          </div>
+        <div class="form-floating">
+            <input formControlName="firstName" type="firstName" class="form-control" id="floatingInput" placeholder="{{user.firstName}}">
+            <label for="floatingInput">First Name</label>
+          </div>
+          <div class="form-floating">
+            <input formControlName="lastName" type="lastName" class="form-control" id="floatingPassword" placeholder="{{user.lastName}}">
+            <label for="floatingPassword">Last Name</label>
+          </div>
+        <div class="form-floating">
+          <input formControlName="password" type="password" class="form-control" id="floatingPassword">
+          <label for="floatingPassword">Yeni Parola</label>
+        </div>
+        <button (click)="update()" class="w-100 btn btn-lg btn-primary" type="submit">Giriş Yap</button>
+        <p class="mt-5 mb-3 text-muted">&copy; 2017–2021</p>
+      </form>
+    </main> 
+</body>
